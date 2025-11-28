@@ -261,7 +261,7 @@
 
         const CustomTransferIcon = ({ className }) => (
             <img
-            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+            src="assets/transfer.png"
             className={`${className} object-contain`}
             alt="Transfer Icon"
             />
@@ -332,20 +332,24 @@
             );
         };
 
-        const NavItem = ({ icon, label, active }) => {
+        const NavItem = ({ icon, label, active, imgSrc }) => {
             return (
             <button
                 className={`flex flex-col items-center justify-center w-full py-1 space-y-1 ${
                 active ? "text-[#0065ba]" : "text-slate-900"
                 }`}
             >
-                <div className={`w-6 h-6 ${active ? "fill-current" : ""}`}>
-                {React.cloneElement(icon, {
+                <div className="w-6 h-6">
+                {imgSrc ? (
+                    <img src={imgSrc} className="w-6 h-6 object-contain" alt={label} />
+                ) : (
+                    React.cloneElement(icon, {
                     className: `w-6 h-6 ${
-                    active ? "text-[#0065ba]" : "text-slate-900"
+                        active ? "text-[#0065ba]" : "text-slate-900"
                     }`,
                     fill: active ? "#0065ba" : "none",
-                })}
+                    })
+                )}
                 </div>
                 <span className="text-[10px] font-medium tracking-wide">
                 {label}
@@ -359,17 +363,14 @@
             <div className="absolute bottom-0 left-0 w-full bg-white border-t border-gray-200 pt-2 z-50">
                 <div className="w-full flex flex-col">
                 <div className="flex justify-between px-2 pb-1">
-                    <NavItem icon={<Home strokeWidth={2} />} label="Home" />
-                    <NavItem icon={<AccountsIcon />} label="Accounts" active />
+                    <NavItem imgSrc="assets/home.svg" label="Home" />
+                    <NavItem imgSrc="assets/wallet.svg" label="Accounts" active />
                     <NavItem
                     icon={<CircleDollarSign strokeWidth={2} />}
                     label="Pay"
                     />
                     <NavItem icon={<Gift strokeWidth={2} />} label="Offers" />
-                    <NavItem
-                    icon={<UserCircle2 strokeWidth={2} />}
-                    label="Profile"
-                    />
+                    <NavItem icon={<UserCircle2 strokeWidth={2} />} label="Profile" />
                 </div>
                 <div className="w-full flex justify-center pb-2 pt-2">
                     <div className="w-[134px] h-[5px] bg-black rounded-full opacity-30"></div>
@@ -440,7 +441,7 @@
                         icon={
                         <Tag
                             className="w-5 h-5 text-[#0065ba]"
-                            strokeWidth={2.5}
+                            strokeWidth={1.5}
                         />
                         }
                         label="Add tag"
